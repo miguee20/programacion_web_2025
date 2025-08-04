@@ -1,13 +1,49 @@
-/* Reset básico */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Fuente por defecto y fondo general */
+/* Body base */
 body {
   font-family: Helvetica, Arial, sans-serif;
   background-color: #f0f2f5;
   color: #1c1e21;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container layout */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Welcome Section */
+.welcome-section {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.welcome-section h1 {
+  color: #1877f2;
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.welcome-section p {
+  font-size: 24px;
+}
+
+/* Login Section */
+.login-section {
+  flex: 1;
+  max-width: 400px;
 }
