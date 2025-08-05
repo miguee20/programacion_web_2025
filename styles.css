@@ -172,3 +172,26 @@ body {
     width: 100%;
   }
 }
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: #737373;
+  margin-top: 40px;
+  padding: 16px;
+}
+
+.footer p {
+  margin-bottom: 6px;
+}
+
+.footer a {
+  color: #737373;
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
