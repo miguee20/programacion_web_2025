@@ -14,6 +14,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
 }
 
 /* Container layout */
@@ -35,12 +36,17 @@ body {
 .welcome-section h1 {
   color: #1877f2;
   font-size: 60px;
-  margin-bottom: 20px;
+  font-weight: 700;
+  line-height: 1.1;
 }
 
 .welcome-section p {
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 1.5;
+  max-width: 500px;
 }
+
 
 /* Login Section */
 .login-section {
