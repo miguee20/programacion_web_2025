@@ -47,7 +47,6 @@ body {
   max-width: 500px;
 }
 
-
 /* Login Section */
 .login-section {
   flex: 1;
@@ -94,6 +93,7 @@ body {
   padding: 12px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  letter-spacing: 0.5px;
 }
 
 .login-button:hover {
@@ -125,6 +125,7 @@ body {
   cursor: pointer;
   margin-top: 8px;
   transition: background-color 0.2s ease-in-out;
+  letter-spacing: 0.5px;
 }
 
 .create-account-button:hover {
@@ -137,4 +138,36 @@ body {
   border: none;
   height: 1px;
   background-color: #dddfe2;
+}
+
+/* Responsive layout for small screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  .welcome-section {
+    padding-right: 0;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .welcome-section h1 {
+    font-size: 48px;
+  }
+
+  .welcome-section p {
+    font-size: 20px;
+  }
+
+  .login-section {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .login-form {
+    width: 100%;
+  }
 }
