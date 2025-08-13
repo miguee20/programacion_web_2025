@@ -3,7 +3,7 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - tarea-03  
+      - tarea-03
 
 jobs:
   deploy:
@@ -28,20 +28,13 @@ jobs:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
         run: doppler run -- npm install && npm run build
 
-      - name: Upload files to S3
+      - name: Deploy to S3 and invalidate CloudFront cache
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
         run: |
-          aws configure set region ${{ secrets.AWS_REGION }}
-          aws s3 sync ./dist s3://$AWS_BUCKET_NAME --delete
+          doppler run -- bash -c "
+            aws configure set region \$AWS_REGION
+            aws s3 sync ./dist s3://\$AWS_BUCKET_NAME --delete
+            aws cloudfront create-invalidation --distribution-id \$AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
+          "
 
-      - name: Invalidate CloudFront cache
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
-        run: |
-          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
