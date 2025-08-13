@@ -24,6 +24,8 @@ jobs:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
       - name: Doppler run - install dependencies and build
+        env:
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
         run: doppler run -- npm install && npm run build
 
       - name: Upload files to S3
@@ -43,4 +45,5 @@ jobs:
           DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+
 
