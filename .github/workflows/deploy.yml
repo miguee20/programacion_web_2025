@@ -18,12 +18,12 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Doppler CLI
-        run: curl -Ls https://cli.doppler.com/install.sh | sh
+      - name: Setup Doppler CLI
+        uses: dopplerhq/cli-action@v3
+        with:
+          token: ${{ secrets.DOPPLER_TOKEN }}
 
       - name: Doppler run - install dependencies and build
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
         run: doppler run -- npm install && npm run build
 
       - name: Upload files to S3
