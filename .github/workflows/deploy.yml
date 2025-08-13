@@ -20,8 +20,8 @@ jobs:
 
       - name: Setup Doppler CLI
         uses: dopplerhq/cli-action@v3
-        with:
-          token: ${{ secrets.DOPPLER_TOKEN }}
+        env:
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
       - name: Doppler run - install dependencies and build
         run: doppler run -- npm install && npm run build
@@ -43,3 +43,4 @@ jobs:
           DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+
