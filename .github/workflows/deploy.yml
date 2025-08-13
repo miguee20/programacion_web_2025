@@ -35,6 +35,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
         run: |
+          aws configure set region $AWS_REGION
           aws s3 sync ./dist s3://$AWS_BUCKET_NAME --delete
 
       - name: Invalidate CloudFront cache
@@ -45,5 +46,6 @@ jobs:
           DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+
 
 
