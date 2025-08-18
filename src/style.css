@@ -23,7 +23,13 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 1.8em;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+header h1 span {
+  color: yellow;
+  text-shadow: 1px 1px 2px #333;
 }
 
 header input {
@@ -144,4 +150,15 @@ header input {
   font-size: 1.5em;
   cursor: pointer;
   color: #555;
+}
+
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px 0;
+  background: var(--primary);
+  color: white;
+  font-size: 0.9em;
+  margin-top: 30px;
 }
