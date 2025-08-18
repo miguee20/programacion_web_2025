@@ -1,12 +1,17 @@
 const gallery = document.getElementById("gallery");
+const searchInput = document.getElementById("search");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
 
-async function getPokemons() {
+let offset = 0;   // desde qué Pokémon empezar
+const limit = 20; // cuántos mostrar por página
+
+// 🔹 Obtener lista de Pokémon
+async function getPokemons(offset = 0, limit = 20) {
   try {
-    // Pedimos 20 Pokémon iniciales
-    const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
     const data = await res.json();
 
-    // Para cada Pokémon, traemos más info (tipo, imagen, etc.)
     const pokemons = await Promise.all(
       data.results.map(async (pokemon) => {
         const res = await fetch(pokemon.url);
@@ -21,8 +26,9 @@ async function getPokemons() {
   }
 }
 
+// 🔹 Renderizar tarjetas
 function renderPokemons(pokemons) {
-  gallery.innerHTML = ""; // limpiar
+  gallery.innerHTML = "";
   pokemons.forEach((p) => {
     const card = document.createElement("div");
     card.className = "card";
@@ -35,4 +41,43 @@ function renderPokemons(pokemons) {
   });
 }
 
-getPokemons();
+// 🔹 Buscar Pokémon por nombre
+async function searchPokemon(name) {
+  if (!name) {
+    getPokemons(offset, limit);
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
+    if (!res.ok) {
+      gallery.innerHTML = `<p>No se encontró el Pokémon "${name}" 😢</p>`;
+      return;
+    }
+    const pokemon = await res.json();
+    renderPokemons([pokemon]);
+  } catch (error) {
+    console.error("Error buscando Pokémon:", error);
+  }
+}
+
+// 🔹 Listeners
+searchInput.addEventListener("input", (e) => {
+  const query = e.target.value.trim();
+  searchPokemon(query);
+});
+
+prevBtn.addEventListener("click", () => {
+  if (offset >= limit) {
+    offset -= limit;
+    getPokemons(offset, limit);
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  offset += limit;
+  getPokemons(offset, limit);
+});
+
+// 🔹 Cargar primeros Pokémon
+getPokemons(offset, limit);
