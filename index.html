@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,14 +9,24 @@
   <body>
     <header>
       <h1>Pokédex</h1>
-      <input type="text" id="search" placeholder="Buscar Pokémon...">
+      <input type="text" id="search" placeholder="Search Pokémon...">
     </header>
 
-    <div id="gallery" class="gallery"></div>
+    <main>
+      <div id="gallery" class="gallery"></div>
 
-    <div class="pagination">
-      <button id="prev">⬅️ Anterior</button>
-      <button id="next">Siguiente ➡️</button>
+      <div class="pagination">
+        <button id="prev">⬅️ Prev</button>
+        <button id="next">Next ➡️</button>
+      </div>
+    </main>
+
+    <!-- 🔹 Modal -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <div id="modalBody"></div>
+      </div>
     </div>
 
     <script type="module" src="/src/main.js"></script>
