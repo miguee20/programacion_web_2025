@@ -5,7 +5,7 @@ This assessment demonstrates the use of the PokeAPI and shows how the applicatio
 ---
 
 ### Doppler Config Syncs
-![Config Syncs](images_assessment/configsnycs.png)  
+![Config Syncs](images_assessment/config_syncs.png)  
 This screenshot shows the "Config Syncs" tab in Doppler, demonstrating the integration with the repository.
 
 ---
