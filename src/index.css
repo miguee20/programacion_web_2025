@@ -30,7 +30,7 @@ body{
   text-align:center;
   background:
     linear-gradient(0deg, rgba(0,0,0,.45), rgba(0,0,0,.45)),
-    url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+    url('https://img.freepik.com/vector-gratis/contexto-diseno-lineas-forma-geometrica-costuras-abstractas_84443-23908.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
   border:6px solid #111;
   margin:16px;
   border-radius:8px;
@@ -131,7 +131,6 @@ h2{ margin:0; font-size:28px; }
 }
 .checkbox.checked{ background:var(--ok); border-color:var(--ok); }
 
-/* modal-ish form */
 .modal{
   position:fixed; inset:0; background:rgba(0,0,0,.35);
   display:grid; place-items:center; padding:16px;
@@ -142,3 +141,6 @@ h2{ margin:0; font-size:28px; }
 }
 .form-row{ display:flex; gap:10px; margin-top:12px; }
 .btn-ghost{ background:#fff; border:1px solid var(--ring); }
+
+.muted{ color: var(--muted); }
+

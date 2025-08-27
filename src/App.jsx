@@ -28,11 +28,14 @@ export default function App() {
     setTasks(prev => prev.filter(t => t.id !== id));
   }, [setTasks]);
 
+  const pending = useMemo(() => tasks.filter(t => !t.completed), [tasks]);
+  const completed = useMemo(() => tasks.filter(t => t.completed), [tasks]);
+
   const filtered = useMemo(() => {
-    if (activeTab === "pending") return tasks.filter(t => !t.completed);
-    if (activeTab === "completed") return tasks.filter(t => t.completed);
+    if (activeTab === "pending") return pending;
+    if (activeTab === "completed") return completed;
     return tasks;
-  }, [tasks, activeTab]);
+  }, [tasks, pending, completed, activeTab]);
 
   return (
     <div className="app">
@@ -50,7 +53,18 @@ export default function App() {
           </button>
         </div>
 
-        <TaskList tasks={filtered} onToggle={toggleTask} onDelete={deleteTask} />
+        {activeTab === "all" ? (
+          <>
+            <TaskList tasks={pending} onToggle={toggleTask} onDelete={deleteTask} />
+            <div style={{ height: 14 }} />
+            <div className="spread" style={{ margin: "6px 2px" }}>
+              <strong>Completed ▲</strong>
+            </div>
+            <TaskList tasks={completed} onToggle={toggleTask} onDelete={deleteTask} />
+          </>
+        ) : (
+          <TaskList tasks={filtered} onToggle={toggleTask} onDelete={deleteTask} />
+        )}
       </main>
 
       {openForm && <TaskForm onSubmit={addTask} onClose={() => setOpenForm(false)} />}
