@@ -1,0 +1,30 @@
+export default function FilterTabs({ active, onChange }) {
+  return (
+    <nav className="tabs" role="tablist" aria-label="Task filters">
+      <button
+        className={active === "all" ? "tab active" : "tab"}
+        onClick={() => onChange("all")}
+        role="tab"
+        aria-selected={active === "all"}
+      >
+        Today
+      </button>
+      <button
+        className={active === "pending" ? "tab active" : "tab"}
+        onClick={() => onChange("pending")}
+        role="tab"
+        aria-selected={active === "pending"}
+      >
+        Pending
+      </button>
+      <button
+        className={active === "completed" ? "tab active" : "tab"}
+        onClick={() => onChange("completed")}
+        role="tab"
+        aria-selected={active === "completed"}
+      >
+        Overdue
+      </button>
+    </nav>
+  );
+}
