@@ -1,4 +1,4 @@
-export default function FilterTabs({ active, onChange }) {
+export default function FilterTabs({ active, onChange, overdueCount }) {
   return (
     <nav className="tabs" role="tablist" aria-label="Task filters">
       <button
@@ -23,7 +23,15 @@ export default function FilterTabs({ active, onChange }) {
         role="tab"
         aria-selected={active === "completed"}
       >
-        Overdue
+        Completed
+      </button>
+      <button
+        className={active === "overdue" ? "tab active" : "tab"}
+        onClick={() => onChange("overdue")}
+        role="tab"
+        aria-selected={active === "overdue"}
+      >
+        Overdue {overdueCount > 0 && `(${overdueCount})`}
       </button>
     </nav>
   );

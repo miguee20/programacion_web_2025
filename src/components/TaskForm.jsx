@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function TaskForm({ onSubmit, onClose }) {
   const [title, setTitle] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -17,8 +18,11 @@ export default function TaskForm({ onSubmit, onClose }) {
     e.preventDefault();
     const trimmed = title.trim();
     if (!trimmed) return;
-    onSubmit(trimmed);
+    
+    const finalDueDate = dueDate ? new Date(dueDate).toISOString() : null;
+    onSubmit(trimmed, finalDueDate);
     setTitle("");
+    setDueDate("");
     onClose();
   }
 
@@ -33,7 +37,22 @@ export default function TaskForm({ onSubmit, onClose }) {
             placeholder="Task title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
+          
+          <div style={{margin: '12px 0'}}>
+            <label style={{display: 'block', marginBottom: '6px', fontWeight: '500'}}>
+              Due Date (optional):
+            </label>
+            <input
+              type="datetime-local"
+              className="input"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              style={{width: '100%'}}
+            />
+          </div>
+
           <div className="form-row">
             <button type="button" className="btn btn-ghost" onClick={onClose}>Cancel</button>
             <button type="submit" className="btn btn-primary">Add</button>

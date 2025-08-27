@@ -13,18 +13,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("all");
   const [openForm, setOpenForm] = useState(false);
 
-
-const addTask = useCallback((title) => {
-  setTasks(prev => [
-    { 
-      id: uid(), 
-      title, 
-      completed: false,
-      createdAt: new Date().toISOString()
-    },
-    ...prev
-  ]);
-}, [setTasks]);
+  const addTask = useCallback((title, dueDate = null) => {
+    setTasks(prev => [
+      { 
+        id: uid(), 
+        title, 
+        completed: false,
+        createdAt: new Date().toISOString(),
+        dueDate: dueDate || null
+      },
+      ...prev
+    ]);
+  }, [setTasks]);
 
   const toggleTask = useCallback((id) => {
     setTasks(prev => prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
@@ -36,12 +36,22 @@ const addTask = useCallback((title) => {
 
   const pending = useMemo(() => tasks.filter(t => !t.completed), [tasks]);
   const completed = useMemo(() => tasks.filter(t => t.completed), [tasks]);
+  
+  const overdue = useMemo(() => {
+    const now = new Date();
+    return tasks.filter(task => 
+      !task.completed && 
+      task.dueDate && 
+      new Date(task.dueDate) < now
+    );
+  }, [tasks]);
 
   const filtered = useMemo(() => {
     if (activeTab === "pending") return pending;
     if (activeTab === "completed") return completed;
+    if (activeTab === "overdue") return overdue;
     return tasks;
-  }, [tasks, pending, completed, activeTab]);
+  }, [tasks, pending, completed, overdue, activeTab]);
 
   return (
     <div className="app">
@@ -49,7 +59,7 @@ const addTask = useCallback((title) => {
         <h1>To-Do App</h1>
       </header>
 
-      <FilterTabs active={activeTab} onChange={setActiveTab} />
+      <FilterTabs active={activeTab} onChange={setActiveTab} overdueCount={overdue.length} />
 
       <main className="content">
         <div className="toolbar">
