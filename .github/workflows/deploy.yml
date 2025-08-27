@@ -17,7 +17,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Doppler CLI
-        run: npm install -g @dopplerhq/cli
+        uses: dopplerhq/cli-action@v1
+
+      - name: Setup Doppler
+        uses: dopplerhq/cli-action@v1
+        with:
+          project: "hw-04"
+          config: "prd"
 
       - name: Setup Doppler
         uses: dopplerhq/cli-action@v1
