@@ -15,13 +15,11 @@ export default function TaskItem({ task, onToggle, onDelete }) {
       </div>
 
       <div className="task-actions">
-        {/* fake due date icon to resemble the screenshot */}
         <span className="badge" title="Due date">
           <span style={{display:"inline-flex", alignItems:"center"}}>🕒</span>
           <span className="muted">No date</span>
         </span>
 
-        {/* priority dot just for visuals */}
         <span className="dot yellow" title="Priority" />
 
         <button className="btn btn-ghost" onClick={() => onDelete(task.id)} title="Delete task">
