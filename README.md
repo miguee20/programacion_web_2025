@@ -44,6 +44,7 @@ git clone https://github.com/miguee20/programacion_web_2025.git
 cd programacion_web_2025
 git checkout hw-06
 ```
+**Remember: Activate the virtual enviroment (venv)**
 
 ### 2. Environment setup
 
@@ -55,7 +56,7 @@ POSTGRES_USER=django_user
 POSTGRES_PASSWORD=securepassword123
 
 # Django
-SECRET_KEY=django-insecure-change-this-in-production-12345
+SECRET_KEY=django-key-123 
 DEBUG=True
 ```
 
@@ -73,7 +74,10 @@ docker-compose exec web python manage.py migrate
 ```
 docker-compose exec web python manage.py createsuperuser
 ```
-Follow the instructions to create an admin user.
+This is the credentials that i used: 
+ - admin
+ - admin@example.com
+ - admin123
 
 ### 6. Access the application
 
@@ -199,4 +203,3 @@ docker-compose exec web python manage.py collectstatic
 - Non-root user in Docker container  
 - Sensitive data stored in environment variables  
 - PostgreSQL protected with password authentication  
-- Debug mode can be turned off via environment variable  
