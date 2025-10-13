@@ -1,0 +1,73 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: secretlink-backend
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: secretlink-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  redis:
+    image: redis/redis-stack-server:latest
+    container_name: secretlink-redis
+    ports:
+      - "6379:6379"
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: secretlink-redisinsight
+    ports:
+      - "5540:5540"
+
+  # ONLY TO SHOW URLS IN THE TERMINAL (CMD OR WHATEVER)
+  url-display:
+    image: alpine:latest
+    container_name: secretlink-urls
+    command: |
+      sh -c "
+      echo 'Waiting for all services to start...'
+      sleep 5
+      echo ''
+      echo '╔══════════════════════════════════════════╗'
+      echo '║         SECRET VAULT APPLICATION         ║'
+      echo '╚══════════════════════════════════════════╝'
+      echo ''
+      echo 'APPLICATION URLs:'
+      echo '- Frontend:     http://localhost:5173'
+      echo '- Backend API:  http://localhost:8000'
+      echo '- RedisInsight: http://localhost:5540'
+      echo ''
+      echo 'SERVICES STATUS:'
+      echo 'React Frontend - Running'
+      echo 'Django Backend - Running' 
+      echo 'Redis Database - Running'
+      echo 'RedisInsight   - Running'
+      echo ''
+      tail -f /dev/null
+      "
+    depends_on:
+      - frontend
+      - backend
+      - redis
+      - redisinsight
+
