@@ -23,7 +23,7 @@ SonarQube was configured using Docker Compose in the `sonar/` folder.
 - Coverage: 0.0%
 
 ### Frontend
-![Frontend Analysis](imagen2.jpg)
+![Frontend Analysis](imagenfront.jpg)
 
 - Quality Gate: Passed
 - Security: 0 issues
